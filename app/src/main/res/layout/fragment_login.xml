@@ -20,24 +20,28 @@
             android:src="@drawable/logoalextodoapp"/>
 
         <EditText
+            android:id="@+id/txtEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:background="@drawable/bg_edit"
-            android:padding="16dp"
+            android:gravity="center"
+            android:inputType="textEmailAddress"
             android:hint="@string/user"
-            android:textSize="16sp"
-            android:gravity="center"/>
+            android:padding="16dp"
+            android:textSize="16sp" />
 
         <EditText
+            android:id="@+id/txtPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:background="@drawable/bg_edit"
-            android:padding="16dp"
-            android:textSize="16sp"
+            android:gravity="center"
+            android:inputType="textPassword"
             android:hint="@string/password"
-            android:gravity="center"/>
+            android:padding="16dp"
+            android:textSize="16sp" />
 
         <Button
             android:id="@+id/btnLogin"
@@ -82,6 +86,16 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:visibility="invisible"
+            tools:visibility="visible"
+            android:indeterminateTint="@color/white"
+            android:layout_gravity="center_horizontal"/>
 
     </LinearLayout>
 
