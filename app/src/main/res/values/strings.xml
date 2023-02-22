@@ -1,12 +1,30 @@
 <resources>
     <string name="app_name">ToDoApp</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="user">email@email.com</string>
     <string name="password">**password**</string>
     <string name="login">Login</string>
     <string name="recover_password">Recover Password</string>
     <string name="signup">Signup</string>
     <string name="send">Send</string>
+    <string name="loading_tasks">Loading Tasks</string>
+
+    <!-- Task -->
+    <string name="add_task">Add Task</string>
+    <string name="task">Task</string>
+    <string name="state">State</string>
+    <string name="to_do">To Do</string>
+    <string name="doing">Doing</string>
+    <string name="done">Done</string>
+    <string name="save">Save</string>
+
+    <!-- Error Firebase Authentication-->
+    <string name="account_not_registered_register_fragment">No account found with this email.</string>
+    <string name="invalid_email_register_fragment">Enter a valid email.</string>
+    <string name="invalid_password_register_fragment">Invalid password, try again.</string>
+    <string name="email_in_use_register_fragment">This email is already in use.</string>
+    <string name="strong_password_register_fragment">Enter a stronger password.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

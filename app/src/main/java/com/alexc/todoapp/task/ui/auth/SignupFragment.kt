@@ -1,4 +1,4 @@
-package com.alexc.todoapp.ui.auth
+package com.alexc.todoapp.task.ui.auth
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,24 +9,23 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.alexc.todoapp.R
-import com.alexc.todoapp.databinding.FragmentLoginBinding
+import com.alexc.todoapp.databinding.FragmentSignupBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
 
-class LoginFragment : Fragment() {
+class SignupFragment : Fragment() {
 
-    private var _binding: FragmentLoginBinding? = null
+    private var _binding: FragmentSignupBinding? = null
     private val binding get() = _binding!!
-
     private lateinit var auth: FirebaseAuth
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentLoginBinding.inflate(inflater,container,false)
+        _binding = FragmentSignupBinding.inflate(inflater,container,false)
         return binding.root
     }
 
@@ -37,22 +36,13 @@ class LoginFragment : Fragment() {
         initClick()
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
+    override fun onDestroy() {
+        super.onDestroy()
         _binding = null
     }
 
     private fun initClick(){
-
-        binding.btnLogin.setOnClickListener { validateData() }
-
-        binding.btnSignup.setOnClickListener{
-            findNavController().navigate(R.id.action_loginFragment_to_signupFragment)
-        }
-
-        binding.btnRecover.setOnClickListener{
-            findNavController().navigate(R.id.action_loginFragment_to_recoverAccountFragment)
-        }
+        binding.btnSignup.setOnClickListener { validateData() }
     }
 
     private fun validateData(){
@@ -62,19 +52,19 @@ class LoginFragment : Fragment() {
         if(email.isNotEmpty()){
             if(password.isNotEmpty()){
                 binding.progressBar.isVisible = true
-                loginUser(email, password)
+                registerUser(email, password)
             }
             else{
-                Toast.makeText(requireContext(),"Enter password", Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(),"Enter password",Toast.LENGTH_LONG).show()
             }
         }
         else{
-            Toast.makeText(requireContext(),"Enter Email", Toast.LENGTH_LONG).show()
+            Toast.makeText(requireContext(),"Enter Email",Toast.LENGTH_LONG).show()
         }
     }
 
-    private fun loginUser(email:String, password:String){
-        auth.signInWithEmailAndPassword(email, password)
+    private fun registerUser(email:String, password:String){
+        auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(requireActivity()) { task ->
                 if (task.isSuccessful) {
                     findNavController().navigate(R.id.action_global_homeFragment)
@@ -83,4 +73,5 @@ class LoginFragment : Fragment() {
                 }
             }
     }
+
 }

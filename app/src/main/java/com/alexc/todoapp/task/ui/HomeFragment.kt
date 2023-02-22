@@ -1,4 +1,4 @@
-package com.alexc.todoapp.ui
+package com.alexc.todoapp.task.ui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,8 +8,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.alexc.todoapp.R
 import com.alexc.todoapp.databinding.FragmentHomeBinding
-import com.alexc.todoapp.ui.adapter.ViewPagerAdapter
-import com.google.android.material.tabs.TabLayout
+import com.alexc.todoapp.task.ui.adapter.ViewPagerAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth

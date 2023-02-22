@@ -1,4 +1,4 @@
-package com.alexc.todoapp.ui.adapter
+package com.alexc.todoapp.task.ui.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity

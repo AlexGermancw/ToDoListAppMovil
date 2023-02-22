@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/splashFragment"
-        android:name="com.alexc.todoapp.ui.SplashFragment"
+        android:name="com.alexc.todoapp.task.ui.SplashFragment"
         android:label="fragment_splash"
         tools:layout="@layout/fragment_splash" >
         <action
@@ -23,7 +23,7 @@
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.alexc.todoapp.ui.HomeFragment"
+        android:name="com.alexc.todoapp.task.ui.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
@@ -31,12 +31,15 @@
             app:destination="@id/authentication"
             app:popUpTo="@id/homeFragment"
             app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_homeFragment_to_formTaskFragment"
+            app:destination="@id/formTaskFragment" />
     </fragment>
     <navigation android:id="@+id/authentication"
         app:startDestination="@id/loginFragment">
         <fragment
             android:id="@+id/loginFragment"
-            android:name="com.alexc.todoapp.ui.auth.LoginFragment"
+            android:name="com.alexc.todoapp.task.ui.auth.LoginFragment"
             android:label="fragment_login"
             tools:layout="@layout/fragment_login" >
             <action
@@ -48,12 +51,12 @@
         </fragment>
         <fragment
             android:id="@+id/signupFragment"
-            android:name="com.alexc.todoapp.ui.auth.SignupFragment"
+            android:name="com.alexc.todoapp.task.ui.auth.SignupFragment"
             android:label="fragment_signup"
             tools:layout="@layout/fragment_signup" />
         <fragment
             android:id="@+id/recoverAccountFragment"
-            android:name="com.alexc.todoapp.ui.auth.RecoverAccountFragment"
+            android:name="com.alexc.todoapp.task.ui.auth.RecoverAccountFragment"
             android:label="fragment_recover_account"
             tools:layout="@layout/fragment_recover_account" />
         <action
@@ -62,4 +65,9 @@
             app:popUpTo="@id/authentication"
             app:popUpToInclusive="true"/>
     </navigation>
+    <fragment
+        android:id="@+id/formTaskFragment"
+        android:name="com.alexc.todoapp.task.ui.FormTaskFragment"
+        android:label="fragment_form_task"
+        tools:layout="@layout/fragment_form_task" />
 </navigation>

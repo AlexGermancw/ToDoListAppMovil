@@ -1,6 +1,7 @@
-package com.alexc.todoapp.ui.auth
+package com.alexc.todoapp.task.ui.auth
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,14 +10,16 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.alexc.todoapp.R
-import com.alexc.todoapp.databinding.FragmentRecoverAccountBinding
+import com.alexc.todoapp.databinding.FragmentLoginBinding
+import com.alexc.todoapp.task.helper.FirebaseHelper
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
-class RecoverAccountFragment : Fragment() {
 
-    private var _binding: FragmentRecoverAccountBinding? = null
+class LoginFragment : Fragment() {
+
+    private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var auth: FirebaseAuth
@@ -25,7 +28,7 @@ class RecoverAccountFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentRecoverAccountBinding.inflate(inflater,container,false)
+        _binding = FragmentLoginBinding.inflate(inflater,container,false)
         return binding.root
     }
 
@@ -42,26 +45,47 @@ class RecoverAccountFragment : Fragment() {
     }
 
     private fun initClick(){
-        binding.btnSend.setOnClickListener { validateData() }
+
+        binding.btnLogin.setOnClickListener { validateData() }
+
+        binding.btnSignup.setOnClickListener{
+            findNavController().navigate(R.id.action_loginFragment_to_signupFragment)
+        }
+
+        binding.btnRecover.setOnClickListener{
+            findNavController().navigate(R.id.action_loginFragment_to_recoverAccountFragment)
+        }
     }
 
     private fun validateData(){
         val email = binding.txtEmail.text.toString().trim()
+        val password = binding.txtPassword.text.toString().trim()
 
         if(email.isNotEmpty()){
-            recoverAccountUser(email)
+            if(password.isNotEmpty()){
+                binding.progressBar.isVisible = true
+                loginUser(email, password)
+            }
+            else{
+                Toast.makeText(requireContext(),"Enter password", Toast.LENGTH_LONG).show()
+            }
         }
         else{
             Toast.makeText(requireContext(),"Enter Email", Toast.LENGTH_LONG).show()
         }
     }
 
-    private fun recoverAccountUser(email:String){
-        auth.sendPasswordResetEmail(email)
+    private fun loginUser(email:String, password:String){
+        auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(requireActivity()) { task ->
                 if (task.isSuccessful) {
-                    Toast.makeText(requireContext(),"A link was sent to your email",Toast.LENGTH_LONG).show()
+                    findNavController().navigate(R.id.action_global_homeFragment)
                 } else {
+                    Toast.makeText(
+                        requireContext(),
+                        task.exception?.message?:"",
+                        Toast.LENGTH_LONG
+                    ).show()
                     binding.progressBar.isVisible = false
                 }
             }

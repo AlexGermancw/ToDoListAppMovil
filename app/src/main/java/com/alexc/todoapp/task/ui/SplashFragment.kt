@@ -1,4 +1,4 @@
-package com.alexc.todoapp.ui
+package com.alexc.todoapp.task.ui
 
 import android.os.Bundle
 import android.os.Handler

@@ -1,4 +1,4 @@
-package com.alexc.todoapp.ui
+package com.alexc.todoapp.task.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
