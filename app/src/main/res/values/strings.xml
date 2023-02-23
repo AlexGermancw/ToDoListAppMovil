@@ -8,6 +8,7 @@
     <string name="signup">Signup</string>
     <string name="send">Send</string>
     <string name="loading_tasks">Loading Tasks</string>
+    <string name="no_tasks">No task found</string>
 
     <!-- Task -->
     <string name="add_task">Add Task</string>

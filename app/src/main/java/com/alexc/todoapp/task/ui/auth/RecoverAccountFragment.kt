@@ -1,18 +1,18 @@
 package com.alexc.todoapp.task.ui.auth
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
 import com.alexc.todoapp.databinding.FragmentRecoverAccountBinding
+import com.alexc.todoapp.task.helper.BaseFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
-class RecoverAccountFragment : Fragment() {
+class RecoverAccountFragment : BaseFragment() {
 
     private var _binding: FragmentRecoverAccountBinding? = null
     private val binding get() = _binding!!
@@ -47,6 +47,7 @@ class RecoverAccountFragment : Fragment() {
         val email = binding.txtEmail.text.toString().trim()
 
         if(email.isNotEmpty()){
+            hideKeyboard()
             recoverAccountUser(email)
         }
         else{

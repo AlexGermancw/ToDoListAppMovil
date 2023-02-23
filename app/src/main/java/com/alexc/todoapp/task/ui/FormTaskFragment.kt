@@ -1,7 +1,6 @@
 package com.alexc.todoapp.task.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,10 +10,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.alexc.todoapp.R
 import com.alexc.todoapp.databinding.FragmentFormTaskBinding
+import com.alexc.todoapp.task.helper.BaseFragment
 import com.alexc.todoapp.task.helper.FirebaseHelper
 import com.alexc.todoapp.task.model.Task
 
-class FormTaskFragment : Fragment() {
+class FormTaskFragment : BaseFragment() {
 
     private val args: FormTaskFragmentArgs by navArgs()
 
@@ -61,6 +61,7 @@ class FormTaskFragment : Fragment() {
         val description = binding.txtDescription.text.toString().trim()
 
         if(description.isNotEmpty()){
+            hideKeyboard()
             binding.progressBar.isVisible = true
 
             if(newTask) task = Task()
@@ -98,7 +99,7 @@ class FormTaskFragment : Fragment() {
                 0-> {
                     R.id.rbTodo
                 }
-                2-> {
+                1-> {
                     R.id.rbDoing
                 }
                 else -> {

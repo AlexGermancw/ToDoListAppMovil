@@ -71,13 +71,13 @@ class TodoFragment : Fragment() {
                                 taskList.add(task)
                             }
                         }
-                        binding.txtLoadingTask.text = ""
                         taskList.reverse()
                         initAdapter()
                     }
                     else{
                         binding.txtLoadingTask.text = "No task found"
                     }
+                    taskEmpty()
                     binding.progressBar.isVisible = false
                 }
 
@@ -107,6 +107,10 @@ class TodoFragment : Fragment() {
                     .actionHomeFragmentToFormTaskFragment(task)
                 findNavController().navigate(action)
             }
+            TaskAdapter.SELECT_NEXT -> {
+                task.status = 1
+                updateTask(task)
+            }
         }
     }
 
@@ -121,4 +125,33 @@ class TodoFragment : Fragment() {
         taskList.remove(task)
         taskAdapter.notifyDataSetChanged()
     }
+
+    private fun updateTask(task: Task){
+        FirebaseHelper
+            .getDataBase()
+            .child("task")
+            .child(FirebaseHelper.getIdUser() ?: "")
+            .child(task.id)
+            .setValue(task)
+            .addOnCompleteListener{ task ->
+                if(task.isSuccessful){
+                    Toast.makeText(requireContext(), "Task updated to 'DOING' with satisfaction", Toast.LENGTH_LONG).show()
+                }
+                else{
+                    Toast.makeText(requireContext(), "Failed to save task", Toast.LENGTH_LONG).show()
+                }
+            }.addOnFailureListener{
+                binding.progressBar.isVisible = false
+                Toast.makeText(requireContext(), "Failed to save task", Toast.LENGTH_LONG).show()
+            }
+    }
+
+    private fun taskEmpty(){
+        binding.txtLoadingTask.text = if(taskList.isEmpty()){
+            getText(R.string.no_tasks)
+        }else{
+            ""
+        }
+    }
+
 }

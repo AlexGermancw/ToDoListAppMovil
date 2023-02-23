@@ -34,6 +34,7 @@ class DoneFragment : Fragment() {
         _binding = FragmentDoneBinding.inflate(inflater,container,false)
         return binding.root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -66,12 +67,13 @@ class DoneFragment : Fragment() {
                                 taskList.add(task)
                             }
                         }
-                        binding.txtLoadingTask.text = ""
+                        taskList.reverse()
                         initAdapter()
                     }
                     else{
                         binding.txtLoadingTask.text = "No task found"
                     }
+                    taskEmpty()
                     binding.progressBar.isVisible = false
                 }
 
@@ -96,6 +98,15 @@ class DoneFragment : Fragment() {
             TaskAdapter.SELECT_REMOVE -> {
                 deleteTask(task)
             }
+            TaskAdapter.SELECT_EDIT -> {
+                val action = HomeFragmentDirections
+                    .actionHomeFragmentToFormTaskFragment(task)
+                findNavController().navigate(action)
+            }
+            TaskAdapter.SELECT_BACK -> {
+                task.status = 1
+                updateTask(task)
+            }
         }
     }
 
@@ -110,4 +121,33 @@ class DoneFragment : Fragment() {
         taskList.remove(task)
         taskAdapter.notifyDataSetChanged()
     }
+
+    private fun updateTask(task: Task){
+        FirebaseHelper
+            .getDataBase()
+            .child("task")
+            .child(FirebaseHelper.getIdUser() ?: "")
+            .child(task.id)
+            .setValue(task)
+            .addOnCompleteListener{ task ->
+                if(task.isSuccessful){
+                    Toast.makeText(requireContext(), "Task updated to 'DOING' with satisfaction", Toast.LENGTH_LONG).show()
+                }
+                else{
+                    Toast.makeText(requireContext(), "Failed to save task", Toast.LENGTH_LONG).show()
+                }
+            }.addOnFailureListener{
+                binding.progressBar.isVisible = false
+                Toast.makeText(requireContext(), "Failed to save task", Toast.LENGTH_LONG).show()
+            }
+    }
+
+    private fun taskEmpty(){
+        binding.txtLoadingTask.text = if(taskList.isEmpty()){
+            getText(R.string.no_tasks)
+        }else{
+            ""
+        }
+    }
+
 }
