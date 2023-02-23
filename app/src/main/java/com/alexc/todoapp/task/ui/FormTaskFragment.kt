@@ -74,9 +74,9 @@ class FormTaskFragment : Fragment() {
         }
     }
 
-    private fun getArgs(){
+    private fun getArgs() {
         args.task.let {
-            if(it != null){
+            if (it != null) {
                 task = it
                 configTask()
             }

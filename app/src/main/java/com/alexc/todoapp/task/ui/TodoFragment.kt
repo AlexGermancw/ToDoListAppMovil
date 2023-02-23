@@ -48,8 +48,10 @@ class TodoFragment : Fragment() {
     }
 
     private fun initClick(){
-        binding.fabAddTask.setOnClickListener{
-            findNavController().navigate(R.id.action_homeFragment_to_formTaskFragment)
+        binding.fabAddTask.setOnClickListener {
+            val action = HomeFragmentDirections
+                .actionHomeFragmentToFormTaskFragment(null)
+            findNavController().navigate(action)
         }
     }
 
